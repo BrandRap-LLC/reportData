@@ -55,7 +55,7 @@ export let reportData: ReportData[] = [];
 export const fetchData = async (): Promise<void> => {
   try {
     const path = window.location.pathname; 
-    const clientURL = path.split("/")[1];
+    const clientURL = path.split("/")[2];
 
     if (!clientURL) throw new Error("No client URL found in the path");
 
