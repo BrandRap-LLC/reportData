@@ -132,12 +132,19 @@ function App() {
 
   const [data, setData] = useState([]);
 
+  const path = window.location.pathname; 
+  const clientURL = path.split("/")[2]; // Extract "skinjectables.com"
+  const nameData = clientURL.split(".");
+
+
   useEffect(() => {
     const loadReportData = async () => {
       const fetchedData:any = await fetchData(); // Wait for API response
       console.log("Fetched Data:", fetchedData);
       setData(fetchedData); // Update local state
     };
+
+
 
     loadReportData();
   }, []); // Run only once on mount
@@ -157,7 +164,7 @@ function App() {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <h1 className="text-2xl font-bold text-white">AlluraDerm</h1>
+                    <h1 className="text-2xl font-bold text-white text-capitalize">{nameData[0]}</h1>
                   </div>
                   <div className="flex items-center space-x-4">
                     <h2 className="hidden md:block text-xl font-semibold text-white">Big Numbers Report Dashboard - February 2025</h2>
