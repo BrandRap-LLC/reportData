@@ -133,7 +133,7 @@ function App() {
   const [data, setData] = useState([]);
 
   const path = window.location.pathname; 
-  const clientURL = path.split("/")[2]; // Extract "skinjectables.com"
+  const clientURL = path.split("/")[2]; 
   const nameData = clientURL.split(".");
 
 
