@@ -15,18 +15,59 @@ export interface ReportData {
 
 export let reportData: ReportData[] = [];
 
+// export const fetchData = async (): Promise<void> => {
+//   try {
+//     const response = await fetch(
+//       "https://dev2.brandrapdev.co/creports/wp-json/client-reports/v1/report?client_url=Alluraderm.com"
+//     );
+//     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+//     const result = await response.json();
+
+//     // Ensure we have valid data in result.metrices
+//     if (result?.metrices) {
+   
+//       reportData = result.metrices;
+
+//       document.documentElement.style.setProperty(
+//         "--primary-color",
+//         `#${result["primary-color"]}`
+//       );
+//       document.documentElement.style.setProperty(
+//         "--secondary-color",
+//         `#${result["secondary-color"]}`
+//       );
+//       document.documentElement.style.setProperty(
+//         "--background-color",
+//         `#${result["background-color"]}`
+//       );
+
+//       return result.metrices;
+//       // Update the exported variable
+//     } else {
+//       throw new Error("No metrics data found in the response");
+//     }
+//   } catch (error: any) {
+//     console.error("Fetch error:", error.message);
+//   }
+// };
+
 export const fetchData = async (): Promise<void> => {
   try {
-    const response = await fetch(
-      "https://dev2.brandrapdev.co/creports/wp-json/client-reports/v1/report?client_url=Alluraderm.com"
-    );
+    const path = window.location.pathname; 
+    const clientURL = path.split("/")[1];
+
+    if (!clientURL) throw new Error("No client URL found in the path");
+
+    const apiURL = `https://dev2.brandrapdev.co/creports/wp-json/client-reports/v1/report?client_url=${clientURL}`;
+
+    const response = await fetch(apiURL);
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
     const result = await response.json();
 
     // Ensure we have valid data in result.metrices
     if (result?.metrices) {
-   
       reportData = result.metrices;
 
       document.documentElement.style.setProperty(
@@ -43,7 +84,6 @@ export const fetchData = async (): Promise<void> => {
       );
 
       return result.metrices;
-      // Update the exported variable
     } else {
       throw new Error("No metrics data found in the response");
     }
@@ -51,6 +91,8 @@ export const fetchData = async (): Promise<void> => {
     console.error("Fetch error:", error.message);
   }
 };
+
+
 
 // Fetch data on module load
 fetchData();
