@@ -25,6 +25,9 @@ import { Menu, X, Download, Calendar, BarChart2, Users, DollarSign, TrendingUp, 
 
 function App() {
   // Get latest month data
+  const path = window.location.pathname; 
+  const clientURL = path.split("/")[2]; 
+  const nameData = clientURL.split(".");
 
   const latestMonth = reportData[reportData?.length - 1];
   const previousMonth = reportData[reportData?.length - 2];
@@ -123,7 +126,7 @@ function App() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `AlluradermMD_Report_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `${nameData[0]}MD_Report_${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
@@ -132,9 +135,7 @@ function App() {
 
   const [data, setData] = useState([]);
 
-  const path = window.location.pathname; 
-  const clientURL = path.split("/")[2]; 
-  const nameData = clientURL.split(".");
+
 
 
   useEffect(() => {
@@ -306,7 +307,7 @@ function App() {
                 </nav>
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <p className="text-sm text-primary-700">
-                    © {new Date().getFullYear()} Alluraderm MD MedSpa
+                    © {new Date().getFullYear()} {nameData[0]} MD MedSpa
                   </p>
                 </div>
               </div>
@@ -654,7 +655,7 @@ function App() {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-center">
                   <p className="text-center text-sm text-white mb-4 md:mb-0">
-                    © {new Date().getFullYear()} Alluraderm MD MedSpa. All rights reserved.
+                    © {new Date().getFullYear()} <span className='text-capitalize'>{nameData[0]}</span> MD MedSpa. All rights reserved.
                   </p>
                   <div className="flex space-x-4">
                     <button
